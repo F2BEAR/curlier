@@ -21,7 +21,7 @@ load_env_files() {
       env_files+=("$current_dir/.env")
     fi
 
-    current_dir=$(dir "$current_dir")
+    current_dir=$(dirname "$current_dir")
   done
 
   if [[ -f "$ROOT_DIR/.env" ]]; then
@@ -47,10 +47,10 @@ show_help() {
   echo "  --wildcard | -w -- Sets a wildcard to your request URI"
   echo ""
   echo "All requests are just .sh with the curl command to be executed."
-  echo "Save them into $ROOT_DIR/curlier/requests/<request_name>.sh"
+  echo "Save them into $ROOT_DIR/<request_name>.sh"
   echo ""
   echo "Pro tip: add an alias for curlier.sh into your shell config file (ie: .zshrc, .bashrc, etc...)"
-  echo "alias curlier=$ROOT_DIR/curlier/curlier.sh"
+  echo "alias curlier=$ROOT_DIR/curlier.sh"
 }
 
 # display help
