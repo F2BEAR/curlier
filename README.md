@@ -1,8 +1,15 @@
 # Curlier 📦
 
-The courier for your curl requests.
+The courier for your `curl` requests.
 
-A minimal, extendable and flexible CLI tool to execute saved requests using curl.
+A minimal, extensible, and flexible CLI tool to execute saved requests using `curl`.
+
+## Features
+
+- Minimal and flexible by design
+- Easily extensible via shell scripting
+- Supports .env files for secure secret management
+- Flag-based interface for easy scripting
 
 ## Usage
 
@@ -12,30 +19,30 @@ Once installed you can run:
 ./curlier.sh <request_name>
 ```
 
-**\*Pro-tip**: Add an alias like `alias curlier=path/to/curlier.sh` into your shell config file\*
+**\*💡Pro-tip**: Add an alias like `alias curlier=path/to/curlier.sh` into your shell config file\*
 
-All your requests are just `.sh` files that you must store under the `requests/` folder.
+All your requests are just `.sh` files that must be stored under the `requests/` folder.
 
-This makes curlier really eassy to extend and customize to your needs; request files are just shell scripts so you can make with them whatever you want.
+This makes Curlier really easy to extend and customize to your needs; request files are just shell scripts so you can do whatever you want with them.
 
-You can configure the default requests directory inside your shell configuration file (ie: .bashrc, .zshrc, etc).
+You can configure the default requests directory in your shell configuration file:
 
 ```bash
 # In .zshrc, .bashrc, etc.
 export CURLIER_REQUESTS_DIR="/path/to/your/custom/requests/dir"
 ```
 
-> **Note:** if `CURLIER_REQUESTS_DIR` is not set curlier will use the default `./requests/` folder inside the curlier project.
+> **Note:** if `CURLIER_REQUESTS_DIR` is not set, Curlier will use the default `./requests/` folder inside the curlier project.
 
 ## Flags
 
-There are only three flags available for the moment:
+There are currently three available flags:
 
-- `--list | -l`: list the available requests inside your `./requests/` folder.
-- `--params | -p`: Sends params to the request file as env vars.
-- `--widlcard | -w`: Sets a wildcard as an env var which you can use in your request URI.
+- `--list | -l`: List the available requests inside your `./requests/` folder.
+- `--params | -p`: Sends params to the request file as environment variables.
+- `--widlcard | -w`: Sets a wildcard as an environment variable which you can use in your request URI.
 
-The `--params` flag can only be used if an available request name is put before the flag and it accepts key/value pairs:
+Both the `--wildcard` and `--params` flags must follow an existing request name and accepts key-value pairs:
 
 ```shell
 curlier example --params foo=bar
@@ -43,9 +50,9 @@ curlier example --params foo=bar
 
 ## Request Examples
 
-> **Note:** There are some examples in the `./requests/` folder
+> **Note:** Some examples in the `./requests/` folder
 
-The most basic example of a request file is as follows:
+The most basic example of a request file is:
 
 ```bash
 #!/bin/bash
@@ -53,7 +60,7 @@ The most basic example of a request file is as follows:
 curl -X GET "https://jsonplaceholder.typicode.com/users"
 ```
 
-You can combine this with whatever you want; for example, you can use `jq` to parse the json response from `jsonplaceholder`.
+You can combine this with other tools like `jq` to parse the JSON response:
 
 ```bash
 #!/bin/bash
@@ -64,22 +71,22 @@ curl -X GET "https://jsonplaceholder.typicode.com/users" \
 
 ### Using the `--params` flag
 
-Curlier parses the key/value pairs that follows the params flag and saves them into an string called `URL_PARAMS` which is available as an env bar.
+Curlier parses the key-value pairs provided to the `--params` flag and stores them into an string called `URL_PARAMS`, available as an environment variable.
 
 ```bash
 #!/bin/bash
 
 # curlier example -p id=1
-curl -X GET "https://jsonplaceholder.typicode.com/users?${URL_PARAMS}" # this will return the user with id=1 from jsonplaceholder
+curl -X GET "https://jsonplaceholder.typicode.com/users?${URL_PARAMS}" # this will return the user with id=1
 ```
 
-The `--params` flag can store as many key/value pairs as you want and they will be stored in the `URL_PARAMS` string as `foo=bar&baz=qux`.
+The `--params` flag can store as many key-value pairs as needed, formatted like `foo=bar&baz=qux` in `URL_PARAMS`.
 
-They also are exported as the name of the key containing the value of it so you can check in your script that every needed param is present (ie: `curlier example -p foo=bar` will return `$foo` which will have a value equal to `bar`).
+Each key is also exported as a standalone environment variable. For example, `curlier example -p foo=bar` makes `$foo` available with the value `bar`.
 
 ### Using the `--wildcard` flag
 
-Similarly to the `--params` flag, `--wildcard` parses the key/value pairs that follows the flag and saves them into separate strings called like the key with the value of it.
+Similarly, `--wildcard` parses key-value pairs and exports each as its own environment variable.
 
 ```bash
 #!/bin/bash
@@ -90,9 +97,9 @@ curl -X GET "https://jsonplaceholder.typicode.com/todos/$id"
 
 ### Using env vars
 
-Curlier also support the usage of .env files to add secrets to your requests, so you can save your requests in your repository without sharing sensitive information like access tokens.
+Curlier supports `.env` files to securely manage secrets in your requests. This allows you to commit requests to your repository without exposing sensitive data like access tokens.
 
-They can be stored in your `/requests/` folder or in it's child folders if you have specific folders for each of your apis (ie: /requests/project1/.env, /requests/.env, /requests/proyect2/.env, etc).
+You can place them in the `/requests/` folder folder or in subdirectories (e.g., `/requests/project1/.env`, `/requests/.env`, `/requests/project2/.env`, etc.).
 
 ```bash
 #!/bin/bash
@@ -100,3 +107,7 @@ They can be stored in your `/requests/` folder or in it's child folders if you h
 curl -X GET "http://localhost:3000/usrs" \
   -H "Authorization: Bearer $token"
 ```
+
+## License
+
+MIT © 2025 Facundo Carbonel
