@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ROOT_DIR="$(pwd)"
-REQUEST_DIR="${CURLIER_REQUESTS_DIR:-$ROOT_DIR/request}"
+REQUEST_DIR="${CURLIER_REQUESTS_DIR:-$ROOT_DIR/requests}"
 
 # verify dependencies
 if ! command -v curl >/dev/null 2>&1; then
