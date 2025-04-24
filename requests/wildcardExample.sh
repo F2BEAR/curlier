@@ -1,11 +1,11 @@
 #!/bin/bash
 
 if [[ -z "$id" ]]; then
-  echo "❌ Parameter ID missing. Add it with the flag -p id=<id>"
+  echo "❌ wildcard ID missing. Add it with the flag -w id=<id>"
   exit 1
 fi
 
-URL="https://jsonplaceholder.typicode.com/users?${URL_PARAMS}"
+URL="https://jsonplaceholder.typicode.com/todos/$id"
 
 START_TIME=$(date +%s%N)
 
