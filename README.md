@@ -16,7 +16,7 @@ A minimal, extensible, and flexible CLI tool to execute saved requests using `cu
 To install Curlier, just clone the repository and make the script executable:
 
 ```shell
-git clone https://github.com/your-username/curlier.git
+git clone https://github.com/F2BEAR/curlier.git
 cd curlier
 chmod +x curlier.sh
 ```
