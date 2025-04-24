@@ -44,6 +44,7 @@ show_help() {
   echo "Flags"
   echo "  --params | -p <foo>=<bar> -- Sends params to the request file as env vars."
   echo "  --list | -l -- List all available requests."
+  echo "  --wildcard | -w -- Sets a wildcard to your request URI"
   echo ""
   echo "All requests are just .sh with the curl command to be executed."
   echo "Save them into $ROOT_DIR/curlier/requests/<request_name>.sh"
@@ -103,6 +104,19 @@ while [[ "$#" -gt 0 ]]; do
       PARAMS+=("$1")
       shift
     done
+    continue
+    ;;
+  -w | --wildcard)
+    shift
+    while [[ "$1" =~ ^[a-zA-Z0-9_]+=.+$ ]]; do
+      wildcard_name="${1%%=*}"
+      wildcard_value="${1#*=}"
+
+      export "${wildcard_name}"="${wildcard_value}"
+      WILDCARDS+=("$1")
+      shift
+    done
+    continue
     ;;
   *)
     echo "⚠ Unknown optioin: $1"
