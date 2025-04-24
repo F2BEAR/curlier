@@ -1,7 +1,7 @@
 #!/bin/bash
 
-DEFAULT_ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/requests"
-ROOT_DIR="${CURLIER_REQUESTS_DIR:-$DEFAULT_ROOT_DIR}"
+ROOT_DIR="$(pwd)"
+REQUEST_DIR="${CURLIER_REQUESTS_DIR:-$ROOT_DIR/request}"
 
 # verify dependencies
 if ! command -v curl >/dev/null 2>&1; then
@@ -24,8 +24,8 @@ load_env_files() {
     current_dir=$(dirname "$current_dir")
   done
 
-  if [[ -f "$ROOT_DIR/.env" ]]; then
-    env_files+=("$ROOT_DIR/.env")
+  if [[ -f "$REQUEST_DIR/.env" ]]; then
+    env_files+=("$REQUEST_DIR/.env")
   fi
 
   for ((i = ${#env_files[@]} - 1; i >= 0; i--)); do
@@ -47,10 +47,10 @@ show_help() {
   echo "  --wildcard | -w -- Sets a wildcard to your request URI"
   echo ""
   echo "All requests are just .sh with the curl command to be executed."
-  echo "Save them into $ROOT_DIR/<request_name>.sh"
+  echo "Save them into $REQUEST_DIR/<request_name>.sh"
   echo ""
   echo "Pro tip: add an alias for curlier.sh into your shell config file (ie: .zshrc, .bashrc, etc...)"
-  echo "alias curlier=$ROOT_DIR/curlier.sh"
+  echo "alias curlier=$ROOT_DIR/curlier/curlier.sh"
 }
 
 # display help
@@ -62,9 +62,9 @@ fi
 # display list of available requests
 if [[ "$1" == '-l' || "$1" == "--list" ]]; then
   echo "Currently available requests:"
-  if [ -d "$ROOT_DIR" ]; then
+  if [ -d "$REQUEST_DIR" ]; then
     CURRENT_DIR=$(pwd)
-    cd "$ROOT_DIR" || exit 1
+    cd "$REQUEST_DIR" || exit 1
     if [ "$(ls -A .)" ]; then
       find . -type f -name "*.sh" | sed 's|^\./||' | sed 's/\.sh$//' | sort | while read -r req; do
         echo "- $req"
@@ -131,7 +131,7 @@ for param in "${PARAMS[@]}"; do
 done
 
 # Declare request file
-REQUEST_FILE="$ROOT_DIR/$REQUEST.sh"
+REQUEST_FILE="$REQUEST_DIR/$REQUEST.sh"
 
 if [[ ! -f "$REQUEST_FILE" ]]; then
   echo "❌ There is no request called '$REQUEST'."
