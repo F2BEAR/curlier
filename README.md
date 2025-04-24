@@ -21,7 +21,7 @@ cd curlier
 chmod +x curlier.sh
 ```
 
-**\*💡Pro-tip**: Add an alias like `alias curlier=path/to/curlier.sh` into your shell config file\*
+💡**Pro-tip**: _Add an alias like `alias curlier=path/to/curlier.sh` into your shell config file_
 
 ## Usage
 
