@@ -28,7 +28,7 @@ chmod +x curlier.sh
 Once installed you can run:
 
 ```shell
-./curlier.sh <request_name>
+curlier <request_name>
 ```
 
 All your requests are just `.sh` files that must be stored under the `requests/` folder.
