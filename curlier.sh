@@ -50,7 +50,7 @@ show_help() {
   echo "Save them into $REQUEST_DIR/<request_name>.sh"
   echo ""
   echo "Pro tip: add an alias for curlier.sh into your shell config file (ie: .zshrc, .bashrc, etc...)"
-  echo "alias curlier=$ROOT_DIR/curlier/curlier.sh"
+  echo "alias curlier=$ROOT_DIR/curlier.sh"
 }
 
 # display help
