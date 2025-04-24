@@ -11,6 +11,18 @@ A minimal, extensible, and flexible CLI tool to execute saved requests using `cu
 - Supports .env files for secure secret management
 - Flag-based interface for easy scripting
 
+## Installation
+
+To install Curlier, just clone the repository and make the script executable:
+
+```shell
+git clone https://github.com/your-username/curlier.git
+cd curlier
+chmod +x curlier.sh
+```
+
+**\*💡Pro-tip**: Add an alias like `alias curlier=path/to/curlier.sh` into your shell config file\*
+
 ## Usage
 
 Once installed you can run:
@@ -18,8 +30,6 @@ Once installed you can run:
 ```shell
 ./curlier.sh <request_name>
 ```
-
-**\*💡Pro-tip**: Add an alias like `alias curlier=path/to/curlier.sh` into your shell config file\*
 
 All your requests are just `.sh` files that must be stored under the `requests/` folder.
 
